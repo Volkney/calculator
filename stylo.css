@@ -81,3 +81,17 @@ html, body {
 #gridContainer, button {
     background-color: hsl(220deg 2% 70%);
 }
+
+#btnFive::after {
+    content: '';
+    display: block;
+    height: 6px;
+    width: 35px;
+    border-radius: 1rem;
+    background-color: hsl(220deg 2% 70%);
+    position: relative;
+    top: 13px;
+    left: 24px;
+    box-shadow: -1px 2px 3px hsl(220deg 2% 38%),
+                inset 0px 0px 3px hsl(220deg 2% 38%);
+  }
