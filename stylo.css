@@ -1,4 +1,181 @@
 
+.popup {
+    width: 500px;
+    height: 100px;
+    background-color: hsl(151deg 15% 52%);
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-left: 43rem;
+    margin-top: 2rem;
+  }
+  #untitled {
+    font-family: 'Alterebro Pixel Font';
+    font-size: x-large;
+    margin-left: 4px;
+  }
+
+  .top-bar {
+    height: 25px;
+    background-color: hsl(123deg 10% 39%);
+    position: relative;
+    border: 2px solid hsl(151deg 15% 52%);
+    border-radius: 3px;
+  }
+
+  .btnClose {
+    position: absolute;
+    top: 2px;
+    right: 02px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-color: hsl(2deg 41% 57%);
+    border: 1px solid hsl(73deg 90% 4%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: hsl(73deg 90% 4%);
+    box-shadow: inset 1px -1px hsl(25deg 51% 44%),inset 1px -1px hsl(25deg 51% 48%);
+  }
+  
+  .btnClose::before, .btnClose::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 15px;
+    background-color: hsl(73deg 90% 4%);
+  }
+  
+  .btnClose::before {
+    transform: rotate(45deg);
+  }
+  
+  .btnClose::after {
+    transform: rotate(-45deg);
+  }
+
+/* this is for the left panel */
+  .popup-left {
+    position: absolute;
+    width: 370px;
+    height: 150px;
+    top: 100px;
+    left: 350px;
+    background-color: hsl(151deg 15% 52%);
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  .content-2 {
+    font-family: 'Alterebro Pixel Font';
+    font-size: x-large;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-left: 10px;
+  }
+
+  .close-btn {
+    background-color: hsl(151deg 15% 52%);
+    color: black;
+    padding: 10px 10px;
+    text-align: center;
+    width: 80px;
+    height: 07px;
+    display: inline-block;
+    font-size: 16px;
+    margin: 30px 140px;
+    cursor: pointer;
+    border-radius: 1px;
+    font-family: 'Alterebro Pixel Font';
+    font-size: x-large;
+    line-height: 6px;
+    border-top: 3px solid hsl(148deg 27% 63%);
+    border-left: 3px solid hsl(148deg 27% 63%);
+    border-bottom: 3px solid hsl(90deg 100% 1%);
+    border-right: 3px solid hsl(90deg 100% 1%);
+  }
+  
+  .top-bar-left {
+    height: 25px;
+    background-color: hsl(123deg 10% 39%);
+    position: relative;
+    border: 2px solid hsl(151deg 15% 52%);
+    border-radius: 3px;
+    font-family: 'Alterebro Pixel Font';
+    font-size: x-large;
+    font-weight: bold;
+  }
+
+  .btnClose-left {
+    position: absolute;
+    top: 2px;
+    right: 02px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-color: hsl(2deg 41% 57%);
+    border: 1px solid hsl(73deg 90% 4%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: hsl(73deg 90% 4%);
+    box-shadow: inset 1px -1px hsl(25deg 51% 44%),inset 1px -1px hsl(25deg 51% 48%);
+  }
+  
+  .btnClose-left::before, .btnClose-left::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 15px;
+    background-color: hsl(73deg 90% 4%);
+  }
+  
+  .btnClose-left::before {
+    transform: rotate(45deg);
+  }
+  
+  .btnClose-left::after {
+    transform: rotate(-45deg);
+  }
+
+/* button error style */
+  .btnError {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: hsl(0deg 20% 46%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: hsl(151deg 15% 52%);
+    border: 1px solid black;
+  }
+  .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .btnError::before, .btnError::after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 28px;
+    background-color: hsl(151deg 15% 52%);
+    border: 1px solid black;
+    border-radius: 3px;
+  }
+  
+  .btnError::before {
+    transform: rotate(45deg);
+  }
+  
+  .btnError::after {
+    transform: rotate(-45deg);
+  }
+/* this is where the grid starts */
 #gridContainer {
     display: grid;
     grid-template-rows: 60px 1fr;
@@ -9,7 +186,7 @@
     height: 650px;
     width: 440px;
     margin-left: 44rem;
-    margin-top: 05rem;
+    margin-top: 1rem;
     border-radius: 2rem;
     box-shadow: inset 0px -5px 15px hsl(220deg 2% 38%);
   }
@@ -22,7 +199,7 @@
     align-items: center;
   }
 
-  .box-container {
+.box-container {
     display: grid;
     grid-template-columns: repeat(2, 20px);
     grid-template-rows: repeat(2, 20px);
