@@ -55,6 +55,12 @@
     transform: rotate(-45deg);
   }
 
+  .display {
+    font-family: 'Alterebro Pixel Font';
+    font-size: x-large;
+    margin-left: 4px;
+  }
+
 /* this is for the left panel */
   .popup-left {
     position: absolute;
