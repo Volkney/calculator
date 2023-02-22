@@ -7,12 +7,18 @@ let operatorButtons = document.querySelectorAll('.operator');
 let actionButtons = document.querySelectorAll('.action');
 
 let decimalClicked = false; // flag to track if decimal point has been clicked
+let currentResult = null; // variable to store the current result
 
 numberButtons.forEach(button => {
   button.addEventListener('click', function(){
     let btnValue = button.value;
-    if(btnValue) {
-      display.textContent += btnValue;
+    if (btnValue) {
+      if (currentResult !== null) {
+        display.textContent = btnValue;
+        currentResult = null;
+      } else {
+        display.textContent += btnValue;
+      }
     }
   });
 });
@@ -23,10 +29,19 @@ operatorButtons.forEach(button => {
     let lastChar = display.textContent.slice(-1);
 
     if (operator && lastChar && lastChar !== '.') {
+      if (display.textContent.includes('=')) {
+        display.textContent = display.textContent.slice(display.textContent.indexOf('=')+1);
+      }
       display.textContent += operator;
       decimalClicked = false; // reset flag for next number
+      currentResult = null; // reset current result if an operator is clicked
     } else if (operator && lastChar && lastChar === '.') {
       display.textContent = display.textContent.slice(0, -1) + operator;
+      currentResult = null; // reset current result if an operator is clicked
+    } else if (operator === '=' && currentResult === null) {
+      let expression = display.textContent;
+      currentResult = evaluateExpression(expression);
+      display.textContent += operator + currentResult;
     }
   });
 });
@@ -39,8 +54,15 @@ actionButtons.forEach(button => {
         decimalClicked = false; // reset flag if deleting decimal point
       }
       display.textContent = display.textContent.slice(0, -1);
+      currentResult = null; // reset current result if a number is deleted
     } else if (button.id === 'btnEnter') {
-      let result = evaluateExpression(display.textContent);
+      let expression = display.textContent;
+      let result = evaluateExpression(expression);
+      if (currentResult !== null) {
+        // If there is a current result, use it as the first operand
+        result = evaluateExpression(currentResult + expression);
+      }
+      currentResult = result; // Store the current result
       display.textContent = result;
       decimalClicked = false; // reset flag for next calculation
     }
@@ -50,31 +72,69 @@ actionButtons.forEach(button => {
 clear.addEventListener('click', function(){
     display.textContent = '';
     decimalClicked = false; // reset flag when clearing display
+    currentResult = null; // reset current result when clearing display
 });
 
 function evaluateExpression(expression) {
   let numbers = expression.split(/[^0-9.]+/).map(Number);
   let operators = expression.split(/[0-9.]+/).filter(Boolean);
-  let result = numbers[0];
-  
-  for (let i = 0; i < operators.length; i++) {
-    switch (operators[i]) {
-      case '+':
-        result += numbers[i + 1];
-        break;
-      case '-':
-        result -= numbers[i + 1];
-        break;
-      case '*':
-        result *= numbers[i + 1];
-        break;
-      case '/':
-        result /= numbers[i + 1];
-        break;
-      default:
-        break;
-    }
+  let operatorStack = [];
+  let numberStack = [];
+
+  // First, push all numbers to the number stack
+  for (let i = 0; i < numbers.length; i++) {
+    numberStack.push(numbers[i]);
   }
-  
-  return result;
+
+  // Then, push all operators to the operator stack
+  for (let i = 0; i < operators.length; i++) {
+    while (
+      operatorStack.length > 0 &&
+      hasHigherPrecedence(operatorStack[operatorStack.length - 1], operators[i])
+    ) {
+      let result = applyOperator(
+        operatorStack.pop(),
+        numberStack.pop(),
+        numberStack.pop()
+      );
+      numberStack.push(result);
+    }
+    operatorStack.push(operators[i]);
+  }
+
+  // Finally, evaluate all remaining operators
+  while (operatorStack.length > 0) {
+    let result = applyOperator(
+      operatorStack.pop(),
+      numberStack.pop(),
+      numberStack.pop()
+    );
+    numberStack.push(result);
+  }
+
+  return numberStack.pop();
+}
+
+function hasHigherPrecedence(operator1, operator2) {
+  let precedence = {
+    "+": 1,
+    "-": 1,
+    "*": 2,
+    "/": 2,
+  };
+
+  return precedence[operator1] >= precedence[operator2];
+}
+
+function applyOperator(operator, num2, num1) {
+  switch (operator) {
+    case "+":
+      return num1 + num2;
+    case "-":
+      return num1 - num2;
+    case "*":
+      return num1 * num2;
+    case "/":
+      return num1 / num2;
+  }
 }
