@@ -1,63 +1,65 @@
 <!DOCTYPE html>
-<html lang="eng">
-    <head>
-        <meta charset="UTF-8">
-        <title>This is a Title</title>
-        <link rel="stylesheet" href="stylo.css">
-    </head>
-    <body>
-        <div class="popup">
-            <div class="top-bar">
-              <span class="btnClose"></span>
-              <div id="untitled">untitledartproject_v4.psd</div>
-            </div>
-            <div class="display"></div>
-          </div>
+<html>
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>This is a Title</title>
+    <link rel="stylesheet" href="stylo.css">
+</head>
+<body>
+    <div class="popup">
+        <div class="top-bar">
+          <span class="btnClose"></span>
+          <div id="untitled">untitledartproject_v4.psd</div>
+        </div>
+        <div class="display"></div>
+      </div>
 
-          <div class="popup-left">
-            <div class="top-bar-left">credits to @saintjulianxv
-              <span class="btnClose-left"></span>
-              <div id="untitled-2"></div>
+      <div class="popup-left">
+        <div class="top-bar-left">credits to @saintjulianxv
+          <span class="btnClose-left"></span>
+          <div id="untitled-2"></div>
+        </div>
+            
+            <div class="content-2">
+                <span class="btnError"></span>
+                <div class="error">An unexpected error has occurred</div>
             </div>
-                
-                <div class="content-2">
-                    <span class="btnError"></span>
-                    <div class="error">An unexpected error has occurred</div>
-                </div>
-                <span class="close-btn">Close</span>
-          </div>
+            <span class="close-btn">Close</span>
+      </div>
 
 
-        <div id="gridContainer">
-            <div id="topContainer">
-                <button type="button" id="clearAll">C</button>
-                <div class="box-container">
-                    <div class="grid-item"></div>
-                    <div class="grid-item"></div>
-                    <div class="grid-item"></div>
-                    <div class="grid-item"></div>
-                </div>
-            </div>
-            <div id="numpadContainer">
-                <button type="button" id="btnDelete" value="delete">D</button>
-                <button type="button" id="btnslash" value="divide">/</button>
-                <button type="button" id="btnMultiply" value="multiply">*</button>
-                <button type="button" id="btnMinus" value="minus">-</button>
-                <button type="button" id="btnSeven" value="7">7</button>
-                <button type="button" id="btnEight" value="8">8</button>
-                <button type="button" id="btnNine" value="9">9</button>
-                <button type="button" id="btnPlus" value="+">+</button>
-                <button type="button" id="btnFour" value="4">4</button>
-                <button type="button" id="btnFive" value="5">5</button>
-                <button type="button" id="btnSix" value="6">6</button>
-                <button type="button" id="btnOne" value="1">1</button>
-                <button type="button" id="btnTwo" value="2">2</button>
-                <button type="button" id="btnDecimal"value="." >.</button>
-                <button type="button" id="btnThree" value="3">3</button>
-                <button type="button" id="btnEnter" value="enter">Enter</button>
-                <button type="button" id="btnZero" value="0">0</button>
+    <div id="gridContainer">
+        <div id="topContainer">
+            <button type="button" id="clearAll">C</button>
+            <div class="box-container">
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
             </div>
         </div>
-        <script src="script.js"></script>
-    </body>
+        <div id="numpadContainer">
+            <button type="button" id="btnDelete" class='action'value="D">D</button>
+            <button type="button" id="btnslash" class='operator'value="÷">/</button>
+            <button type="button" id="btnMultiply" class='operator'value='x'>*</button>
+            <button type="button" id="btnMinus" class='operator'value="-">-</button>
+            <button type="button" id="btnSeven" value="7" class='number'>7</button>
+            <button type="button" id="btnEight" value="8" class='number'>8</button>
+            <button type="button" id="btnNine" value="9" class='number'>9</button>
+            <button type="button" id="btnPlus" value="+" class='operator'>+</button>
+            <button type="button" id="btnFour" value="4" class='number'>4</button>
+            <button type="button" id="btnFive" value="5" class='number'>5</button>
+            <button type="button" id="btnSix" value="6" class='number'>6</button>
+            <button type="button" id="btnOne" value="1" class='number'>1</button>
+            <button type="button" id="btnTwo" value="2" class='number'>2</button>
+            <button type="button" id="btnDecimal"value="." class='number'>.</button>
+            <button type="button" id="btnThree" value="3" class='number'>3</button>
+            <button type="button" id="btnEnter" value="Enter" class='action'>Enter</button>
+            <button type="button" id="btnZero" value="0" class='number'>0</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+   
 </html>

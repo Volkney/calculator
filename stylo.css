@@ -57,9 +57,10 @@
 
   .display {
     font-family: 'Alterebro Pixel Font';
-    font-size: x-large;
-    margin-left: 4px;
+    font-size: 4em;
+    overflow: hidden;
   }
+
 
 /* this is for the left panel */
   .popup-left {
@@ -67,7 +68,7 @@
     width: 370px;
     height: 150px;
     top: 100px;
-    left: 350px;
+    left: 330px;
     background-color: hsl(151deg 15% 52%);
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
