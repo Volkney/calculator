@@ -76,65 +76,29 @@ clear.addEventListener('click', function(){
 });
 
 function evaluateExpression(expression) {
-  let numbers = expression.split(/[^0-9.]+/).map(Number);
+  let numbers = expression.split(/[^0-9.]+/);
   let operators = expression.split(/[0-9.]+/).filter(Boolean);
-  let operatorStack = [];
-  let numberStack = [];
+  let result = parseFloat(numbers[0]);
 
-  // First, push all numbers to the number stack
-  for (let i = 0; i < numbers.length; i++) {
-    numberStack.push(numbers[i]);
-  }
-
-  // Then, push all operators to the operator stack
   for (let i = 0; i < operators.length; i++) {
-    while (
-      operatorStack.length > 0 &&
-      hasHigherPrecedence(operatorStack[operatorStack.length - 1], operators[i])
-    ) {
-      let result = applyOperator(
-        operatorStack.pop(),
-        numberStack.pop(),
-        numberStack.pop()
-      );
-      numberStack.push(result);
+    let number = parseFloat(numbers[i + 1]);
+    switch (operators[i]) {
+      case '+':
+        result += number;
+        break;
+      case '-':
+        result -= number;
+        break;
+      case '*':
+        result *= number;
+        break;
+      case '/':
+        result /= number;
+        break;
+      default:
+        break;
     }
-    operatorStack.push(operators[i]);
   }
 
-  // Finally, evaluate all remaining operators
-  while (operatorStack.length > 0) {
-    let result = applyOperator(
-      operatorStack.pop(),
-      numberStack.pop(),
-      numberStack.pop()
-    );
-    numberStack.push(result);
-  }
-
-  return numberStack.pop();
-}
-
-function hasHigherPrecedence(operator1, operator2) {
-  let precedence = {
-    "+": 1,
-    "-": 1,
-    "*": 2,
-    "/": 2,
-  };
-
-  return precedence[operator1] >= precedence[operator2];
-}
-
-function applyOperator(operator, num2, num1) {
-  switch (operator) {
-    case "+":
-      return num1 + num2;
-    case "-":
-      return num1 - num2;
-    case "*":
-      return num1 * num2;
-    case "/":
-      return num1 / num2;
-  }
+  return result;
 }
