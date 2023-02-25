@@ -6,99 +6,81 @@ let numberButtons = document.querySelectorAll('.number');
 let operatorButtons = document.querySelectorAll('.operator');
 let actionButtons = document.querySelectorAll('.action');
 
-let decimalClicked = false; // flag to track if decimal point has been clicked
-let currentResult = null; // variable to store the current result
 
-numberButtons.forEach(button => {
-  button.addEventListener('click', function(){
-    let btnValue = button.value;
-    if (btnValue) {
-      if (currentResult !== null) {
-        display.textContent = btnValue;
-        currentResult = null;
-      } else {
-        display.textContent += btnValue;
-      }
-    }
-  });
-});
+let firstNumber = null;
+let secondNumber = null;
+let currentOperator = null;
 
-operatorButtons.forEach(button => {
-  button.addEventListener('click', function(){
-    let operator = button.value;
-    let lastChar = display.textContent.slice(-1);
-
-    if (operator && lastChar && lastChar !== '.') {
-      if (display.textContent.includes('=')) {
-        display.textContent = display.textContent.slice(display.textContent.indexOf('=')+1);
-      }
-      display.textContent += operator;
-      decimalClicked = false; // reset flag for next number
-      currentResult = null; // reset current result if an operator is clicked
-    } else if (operator && lastChar && lastChar === '.') {
-      display.textContent = display.textContent.slice(0, -1) + operator;
-      currentResult = null; // reset current result if an operator is clicked
-    } else if (operator === '=' && currentResult === null) {
-      let expression = display.textContent;
-      currentResult = evaluateExpression(expression);
-      display.textContent += operator + currentResult;
-    }
-  });
-});
-
-actionButtons.forEach(button => {
-  button.addEventListener('click', function(){
-    if (button.id === 'btnDelete') {
-      let lastChar = display.textContent.slice(-1);
-      if (lastChar === '.') {
-        decimalClicked = false; // reset flag if deleting decimal point
-      }
-      display.textContent = display.textContent.slice(0, -1);
-      currentResult = null; // reset current result if a number is deleted
-    } else if (button.id === 'btnEnter') {
-      let expression = display.textContent;
-      let result = evaluateExpression(expression);
-      if (currentResult !== null) {
-        // If there is a current result, use it as the first operand
-        result = evaluateExpression(currentResult + expression);
-      }
-      currentResult = result; // Store the current result
-      display.textContent = result;
-      decimalClicked = false; // reset flag for next calculation
-    }
-  });
-});
-
-clear.addEventListener('click', function(){
-    display.textContent = '';
-    decimalClicked = false; // reset flag when clearing display
-    currentResult = null; // reset current result when clearing display
-});
-
-function evaluateExpression(expression) {
-  let numbers = expression.split(/[^0-9.]+/);
-  let operators = expression.split(/[0-9.]+/).filter(Boolean);
-  let result = parseFloat(numbers[0]);
-
-  for (let i = 0; i < operators.length; i++) {
-    let number = parseFloat(numbers[i + 1]);
-    switch (operators[i]) {
-      case '+':
-        result += number;
-        break;
-      case '-':
-        result -= number;
-        break;
-      case '*':
-        result *= number;
-        break;
-      case '/':
-        result /= number;
-        break;
-      default:
-        break;
-    }
-  }
-
-  return result;
+function add(num1, num2) {
+  return num1 + num2;
 }
+
+function subtract(num1, num2) {
+  return num1 - num2;
+}
+
+function multiply(num1, num2) {
+  return num1 * num2;
+}
+
+function divide(num1, num2) {
+  if (num2 === 0) {
+    return "Cannot divide by zero";
+  }
+  return num1 / num2;
+}
+
+function operate(operator, num1, num2) {
+  switch (operator) {
+    case "+":
+      return add(num1, num2);
+    case "-":
+      return subtract(num1, num2);
+    case "*":
+      return multiply(num1, num2);
+    case "/":
+      return divide(num1, num2);
+    default:
+      return "Invalid operator";
+  }
+}
+
+buttons.forEach(button => {
+  button.addEventListener('click',function(){
+    let btnValue = button.value;
+    if (btnValue >= '0' && btnValue <= '9') {
+      if (currentOperator === null) {
+        if (firstNumber === null) {
+          firstNumber = btnValue;
+        } else {
+          firstNumber += btnValue;
+        }
+      } else {
+        if (secondNumber === null) {
+          secondNumber = btnValue;
+        } else {
+          secondNumber += btnValue;
+        }
+      }
+      display.textContent += btnValue;
+    } else if (btnValue === '+' || btnValue === '-' || btnValue === '*' || btnValue === '/') {
+      currentOperator = btnValue;
+      display.textContent += btnValue;
+    } else if (btnValue === '=') {
+      if (firstNumber !== null && secondNumber !== null && currentOperator !== null) {
+        let result = operate(currentOperator, parseFloat(firstNumber), parseFloat(secondNumber));
+        display.textContent = result.toString();
+        firstNumber = result.toString();
+        secondNumber = null;
+        currentOperator = null;
+      }
+    }
+  });
+});
+
+clear.addEventListener('click',function(){
+  display.textContent = '';
+  firstNumber = null;
+  secondNumber = null;
+  currentOperator = null;
+});
