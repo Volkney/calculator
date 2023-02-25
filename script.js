@@ -2,14 +2,11 @@ let buttons = document.querySelectorAll('[id^="btn"]');
 let display = document.getElementsByClassName('display')[0];
 let clear = document.getElementById('clearAll');
 
-let numberButtons = document.querySelectorAll('.number');
-let operatorButtons = document.querySelectorAll('.operator');
-let actionButtons = document.querySelectorAll('.action');
-
-
 let firstNumber = null;
 let secondNumber = null;
 let currentOperator = null;
+
+let isCalculationPairInProgress = false;
 
 function add(num1, num2) {
   return num1 + num2;
@@ -36,9 +33,9 @@ function operate(operator, num1, num2) {
       return add(num1, num2);
     case "-":
       return subtract(num1, num2);
-    case "*":
+    case "x":
       return multiply(num1, num2);
-    case "/":
+    case "÷":
       return divide(num1, num2);
     default:
       return "Invalid operator";
@@ -48,6 +45,8 @@ function operate(operator, num1, num2) {
 buttons.forEach(button => {
   button.addEventListener('click',function(){
     let btnValue = button.value;
+
+
     if (btnValue >= '0' && btnValue <= '9') {
       if (currentOperator === null) {
         if (firstNumber === null) {
@@ -57,15 +56,24 @@ buttons.forEach(button => {
         }
       } else {
         if (secondNumber === null) {
+          display.textContent = '';
           secondNumber = btnValue;
         } else {
           secondNumber += btnValue;
         }
       }
       display.textContent += btnValue;
-    } else if (btnValue === '+' || btnValue === '-' || btnValue === '*' || btnValue === '/') {
+    } else if (btnValue === '+' || btnValue === '-' || btnValue === 'x' || btnValue === '÷') {
       currentOperator = btnValue;
-      display.textContent += btnValue;
+      
+      button.style.backgroundColor = 'gray';
+      button.addEventListener('mousedown', function() {
+        button.style.backgroundColor = 'blue';
+      });
+      
+      button.addEventListener('mouseup', function() {
+        button.style.backgroundColor = 'gray';
+      });
     } else if (btnValue === '=') {
       if (firstNumber !== null && secondNumber !== null && currentOperator !== null) {
         let result = operate(currentOperator, parseFloat(firstNumber), parseFloat(secondNumber));
