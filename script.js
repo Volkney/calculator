@@ -43,14 +43,34 @@ function operate(operator, num1, num2) {
 }
 
 buttons.forEach(button => {
-  button.addEventListener('click',function(){
+  button.addEventListener('click', function() {
     let btnValue = button.value;
-
-
-    if (btnValue >= '0' && btnValue <= '9') {
+    if (btnValue === '.') {
       if (currentOperator === null) {
         if (firstNumber === null) {
-          firstNumber = btnValue;
+          firstNumber = '0.';
+        } else if (!firstNumber.includes('.')) { // check if firstNumber already contains a decimal point
+          firstNumber += '.';
+        }
+      } else {
+        if (secondNumber === null) {
+          display.textContent = '0.';
+          secondNumber = '0.';
+        } else if (!secondNumber.includes('.')) { // check if secondNumber already contains a decimal point
+          secondNumber += '.';
+        }
+      }
+      if (!display.textContent.includes('.')) { // check if display already contains a decimal point
+        display.textContent += '.';
+      }
+    } else if (btnValue >= '0' && btnValue <= '9') {
+      if (currentOperator === null) {
+        if (firstNumber === null) {
+          if (btnValue === '0') {
+            firstNumber = '0';
+          } else {
+            firstNumber = btnValue;
+          }
         } else {
           firstNumber += btnValue;
         }
@@ -65,15 +85,7 @@ buttons.forEach(button => {
       display.textContent += btnValue;
     } else if (btnValue === '+' || btnValue === '-' || btnValue === 'x' || btnValue === '÷') {
       currentOperator = btnValue;
-      
-      button.style.backgroundColor = 'gray';
-      button.addEventListener('mousedown', function() {
-        button.style.backgroundColor = 'blue';
-      });
-      
-      button.addEventListener('mouseup', function() {
-        button.style.backgroundColor = 'gray';
-      });
+      button.style.backgroundColor = 'hsl(240, 1%, 80%)';
     } else if (btnValue === '=') {
       if (firstNumber !== null && secondNumber !== null && currentOperator !== null) {
         let result = operate(currentOperator, parseFloat(firstNumber), parseFloat(secondNumber));
@@ -81,11 +93,15 @@ buttons.forEach(button => {
         firstNumber = result.toString();
         secondNumber = null;
         currentOperator = null;
+        buttons.forEach(opButton => {
+          if (opButton.value === '+' || opButton.value === '-' || opButton.value === 'x' || opButton.value === '÷') {
+            opButton.style.backgroundColor = 'hsl(240, 1%, 70%)';
+          }
+        });
       }
     }
   });
 });
-
 clear.addEventListener('click',function(){
   display.textContent = '';
   firstNumber = null;
