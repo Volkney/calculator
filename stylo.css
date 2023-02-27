@@ -1,7 +1,7 @@
 
 .popup {
     width: 500px;
-    height: 100px;
+    height: 150px;
     background-color: hsl(151deg 15% 52%);
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -15,7 +15,7 @@
   }
 
   .top-bar {
-    height: 25px;
+    height: 30px;
     background-color: hsl(123deg 10% 39%);
     position: relative;
     border: 2px solid hsl(151deg 15% 52%);
@@ -58,17 +58,17 @@
   .display {
     font-family: 'Alterebro Pixel Font';
     font-size: 4em;
-
+    text-align: right;
   }
 
 
 /* this is for the left panel */
   .popup-left {
     position: absolute;
-    width: 370px;
-    height: 150px;
-    top: 100px;
-    left: 330px;
+    width: 390px;
+    height: 170px;
+    top: 350px;
+    left: 750px;
     background-color: hsl(151deg 15% 52%);
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -146,7 +146,6 @@
     transform: rotate(-45deg);
   }
 
-/* button error style */
   .btnError {
     position: absolute;
     width: 40px;
@@ -182,6 +181,17 @@
   .btnError::after {
     transform: rotate(-45deg);
   }
+
+
+  .popup-left,
+  .content-2,
+  .close-btn,
+  .top-bar-left,
+  .btnClose-left,
+  .btnError
+  .error {
+  visibility: hidden;
+}
 /* this is where the grid starts */
 #gridContainer {
     display: grid;
