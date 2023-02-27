@@ -97,7 +97,7 @@ buttons.forEach(button => {
         }
       } else {
         if (secondNumber === null) {
-          /* display.textContent = ''; */   //uncheck this if don't want to show the second number//
+          display.textContent = '';   //uncheck this if don't want to show the second number//
           secondNumber = btnValue;
         } else {
           secondNumber += btnValue;
