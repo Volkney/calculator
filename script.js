@@ -1,12 +1,19 @@
 let buttons = document.querySelectorAll('[id^="btn"]');
 let display = document.getElementsByClassName('display')[0];
 let clear = document.getElementById('clearAll');
+let backSpace = document.getElementById('btnDelete');
 
 let firstNumber = null;
 let secondNumber = null;
 let currentOperator = null;
 
 let isCalculationPairInProgress = false;
+
+
+backSpace.addEventListener('click', function(){
+  let lastChar = display.textContent.slice(-1);
+  display.textContent = display.textContent.slice(0,-1);
+});
 
 function add(num1, num2) {
   return num1 + num2;
